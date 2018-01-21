@@ -21,6 +21,10 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -51,6 +55,10 @@ dependencies {
     def rxlifecycleVersion = '2.2.1'
     compile "com.trello.rxlifecycle2:rxlifecycle-kotlin:$rxlifecycleVersion"
     compile "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycleVersion"
+
+    compile "com.google.dagger:dagger:2.12"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.12"
+    kapt "com.google.dagger:dagger-compiler:2.12"
 }
 repositories {
     mavenCentral()
