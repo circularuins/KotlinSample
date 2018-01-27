@@ -7,8 +7,8 @@ import javax.inject.Singleton
 /**
  * Created by circularuins on 2018/01/21.
  */
-@Component(modules = arrayOf(ClientModule::class))
 @Singleton
+@Component(modules = [ClientModule::class])
 interface AppComponent {
 
     fun inject(mainActivity: MainActivity)
