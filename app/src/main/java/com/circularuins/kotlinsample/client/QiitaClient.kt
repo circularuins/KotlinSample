@@ -8,8 +8,11 @@ import retrofit2.http.Query
 /**
  * Created by circularuins on 2018/01/11.
  */
-interface ArticleClient {
+interface QiitaClient {
 
     @GET("/api/v2/items")
     fun search(@Query("query") query: String): Observable<List<Article>>
+
+    @GET("/api/v2/items")
+    fun getNews(): Observable<List<Article>>
 }

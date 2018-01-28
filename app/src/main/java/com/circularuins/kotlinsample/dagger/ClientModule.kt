@@ -1,6 +1,6 @@
 package com.circularuins.kotlinsample.dagger
 
-import com.circularuins.kotlinsample.client.ArticleClient
+import com.circularuins.kotlinsample.client.QiitaClient
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -33,6 +33,6 @@ class ClientModule {
 
     @Provides
     @Singleton
-    fun provideArticleClient(retrofit: Retrofit): ArticleClient =
-            retrofit.create(ArticleClient::class.java)
+    fun provideArticleClient(retrofit: Retrofit): QiitaClient =
+            retrofit.create(QiitaClient::class.java)
 }

@@ -1,6 +1,7 @@
 package com.circularuins.kotlinsample.dagger
 
-import com.circularuins.kotlinsample.MainActivity
+import com.circularuins.kotlinsample.NewArticlesActivity
+import com.circularuins.kotlinsample.UsersArticlesActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,5 +12,6 @@ import javax.inject.Singleton
 @Component(modules = [ClientModule::class])
 interface AppComponent {
 
-    fun inject(mainActivity: MainActivity)
+    fun inject(usersArticlesActivity: UsersArticlesActivity)
+    fun inject(newArticlesActivity: NewArticlesActivity)
 }
