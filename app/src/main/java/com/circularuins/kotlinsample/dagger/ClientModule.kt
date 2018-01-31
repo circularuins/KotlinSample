@@ -33,6 +33,6 @@ class ClientModule {
 
     @Provides
     @Singleton
-    fun provideArticleClient(retrofit: Retrofit): QiitaClient =
+    fun provideQiitaClient(retrofit: Retrofit): QiitaClient =
             retrofit.create(QiitaClient::class.java)
 }
