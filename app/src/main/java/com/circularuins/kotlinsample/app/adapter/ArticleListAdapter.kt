@@ -1,11 +1,11 @@
-package com.circularuins.kotlinsample
+package com.circularuins.kotlinsample.app.adapter
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.circularuins.kotlinsample.domain.model.Article
-import com.circularuins.kotlinsample.view.ArticleView
+import com.circularuins.kotlinsample.app.view.ArticleView
 
 /**
  * Created by circularuins on 2018/01/08.

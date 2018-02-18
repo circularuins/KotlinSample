@@ -1,4 +1,4 @@
-package com.circularuins.kotlinsample.view
+package com.circularuins.kotlinsample.app.view
 
 import android.content.Context
 import android.util.AttributeSet

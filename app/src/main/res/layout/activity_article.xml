@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <com.circularuins.kotlinsample.view.ArticleView
+    <com.circularuins.kotlinsample.app.view.ArticleView
         android:id="@+id/article_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -1,4 +1,4 @@
-package com.circularuins.kotlinsample
+package com.circularuins.kotlinsample.app.activity
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
+import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
+import com.circularuins.kotlinsample.KotlinSampleApp
+import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
+import com.circularuins.kotlinsample.toast
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import javax.inject.Inject
@@ -62,7 +66,7 @@ class UsersArticlesActivity : RxAppCompatActivity() {
                     })
         }
 
-        val user: User = intent.getParcelableExtra(UsersArticlesActivity.ARTICLE_LIST_EXTRA)
+        val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
         val queryId: String = "user:" + user.id
         progressBar.visibility = View.VISIBLE
         articlesRepository.getArticles(queryId)

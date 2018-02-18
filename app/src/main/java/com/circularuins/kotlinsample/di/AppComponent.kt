@@ -1,7 +1,7 @@
 package com.circularuins.kotlinsample.di
 
-import com.circularuins.kotlinsample.NewArticlesActivity
-import com.circularuins.kotlinsample.UsersArticlesActivity
+import com.circularuins.kotlinsample.app.activity.NewArticlesActivity
+import com.circularuins.kotlinsample.app.activity.UsersArticlesActivity
 import dagger.Component
 import javax.inject.Singleton
 

@@ -1,10 +1,14 @@
-package com.circularuins.kotlinsample
+package com.circularuins.kotlinsample.app.activity
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import android.widget.ProgressBar
+import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
+import com.circularuins.kotlinsample.KotlinSampleApp
+import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
+import com.circularuins.kotlinsample.toast
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import javax.inject.Inject

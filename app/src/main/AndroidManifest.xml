@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewArticlesActivity">
+        <activity android:name=".app.activity.NewArticlesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ArticleActivity" />
-        <activity android:name=".UsersArticlesActivity" />
+        <activity android:name=".app.activity.ArticleActivity" />
+        <activity android:name=".app.activity.UsersArticlesActivity" />
     </application>
 
 </manifest>

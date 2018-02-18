@@ -1,12 +1,13 @@
-package com.circularuins.kotlinsample
+package com.circularuins.kotlinsample.app.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebView
+import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.domain.model.Article
-import com.circularuins.kotlinsample.view.ArticleView
+import com.circularuins.kotlinsample.app.view.ArticleView
 
 /**
  * Created by circularuins on 2018/01/08.
