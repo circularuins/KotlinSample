@@ -34,8 +34,7 @@ class NewArticlesActivity : RxAppCompatActivity(), NewArticlesContract.View {
         (application as KotlinSampleApp).component.inject(this)
         setContentView(R.layout.activity_articles_list)
 
-        val presenter: NewArticlesContract.Presenter =
-                NewArticlesPresenter(this, articlesRepository, bindUntilEvent(ActivityEvent.DESTROY))
+        val presenter = NewArticlesPresenter(this, articlesRepository, bindUntilEvent(ActivityEvent.DESTROY))
         presenter.start()
     }
 
