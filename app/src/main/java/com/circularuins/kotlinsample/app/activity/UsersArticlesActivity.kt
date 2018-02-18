@@ -4,13 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
-import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
 import com.circularuins.kotlinsample.KotlinSampleApp
 import com.circularuins.kotlinsample.R
+import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
 import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.circularuins.kotlinsample.toast
@@ -37,8 +35,6 @@ class UsersArticlesActivity : RxAppCompatActivity() {
         setContentView(R.layout.activity_users_articles)
 
         val listView: ListView = findViewById(R.id.list_view)
-        val queryEditText: EditText = findViewById(R.id.query_edit_text)
-        val searchButton: Button = findViewById(R.id.search_button)
         val progressBar: ProgressBar = findViewById(R.id.progress_bar)
 
         val listAdapter = ArticleListAdapter(applicationContext)
@@ -46,24 +42,6 @@ class UsersArticlesActivity : RxAppCompatActivity() {
         listView.setOnItemClickListener { adapterView, view, position, id ->
             val article = listAdapter.articles[position]
             ArticleActivity.intent(this, article).let { startActivity(it) }
-        }
-
-        searchButton.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-
-            val queryId: String = "user:" + queryEditText.text.toString()
-            articlesRepository.getArticles(queryId)
-                    .doAfterTerminate {
-                        progressBar.visibility = View.GONE
-                    }
-                    .bindToLifecycle(this)
-                    .subscribe({
-                        queryEditText.text.clear()
-                        listAdapter.articles = it
-                        listAdapter.notifyDataSetChanged()
-                    }, {
-                        toast("エラー : $it")
-                    })
         }
 
         val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
