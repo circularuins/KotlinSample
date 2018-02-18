@@ -9,6 +9,7 @@ import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
 import com.circularuins.kotlinsample.app.contract.NewArticlesContract
 import com.circularuins.kotlinsample.app.presenter.NewArticlesPresenter
+import com.circularuins.kotlinsample.bindVew
 import com.circularuins.kotlinsample.domain.model.Article
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.circularuins.kotlinsample.toast
@@ -21,13 +22,8 @@ class NewArticlesActivity : RxAppCompatActivity(), NewArticlesContract.View {
     @Inject
     lateinit var articlesRepository: ArticlesRepository
 
-    private val progressBar: ProgressBar by lazy {
-        findViewById<ProgressBar>(R.id.progress_bar)
-    }
-
-    private val listView: ListView by lazy {
-        findViewById<ListView>(R.id.list_view)
-    }
+    private val progressBar: ProgressBar by bindVew(R.id.progress_bar)
+    private val listView: ListView by bindVew(R.id.list_view)
 
     private val listAdapter: ArticleListAdapter by lazy {
         ArticleListAdapter(applicationContext)
