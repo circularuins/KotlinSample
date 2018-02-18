@@ -1,6 +1,10 @@
-package com.circularuins.kotlinsample.dagger
+package com.circularuins.kotlinsample.di
 
-import com.circularuins.kotlinsample.client.QiitaClient
+import com.circularuins.kotlinsample.infra.rest.QiitaClient
+import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
+import com.circularuins.kotlinsample.domain.repository.SchedulerProvider
+import com.circularuins.kotlinsample.infra.repository.AppSchedulerProvider
+import com.circularuins.kotlinsample.infra.repository.ArticlesRepositoryImpl
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -35,4 +39,14 @@ class ClientModule {
     @Singleton
     fun provideQiitaClient(retrofit: Retrofit): QiitaClient =
             retrofit.create(QiitaClient::class.java)
+
+    @Provides
+    fun provideSchedulerProvider(): SchedulerProvider {
+        return AppSchedulerProvider()
+    }
+
+    @Provides
+    fun provideArticlesRepository(client: QiitaClient,
+                                  schedulerProvider: SchedulerProvider): ArticlesRepository =
+            ArticlesRepositoryImpl(client, schedulerProvider.io(), schedulerProvider.ui())
 }

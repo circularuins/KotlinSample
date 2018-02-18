@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.webkit.WebView
-import com.circularuins.kotlinsample.model.Article
+import com.circularuins.kotlinsample.domain.model.Article
 import com.circularuins.kotlinsample.view.ArticleView
 
 /**

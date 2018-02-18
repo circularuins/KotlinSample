@@ -1,4 +1,4 @@
-package com.circularuins.kotlinsample.model
+package com.circularuins.kotlinsample.domain.model
 
 import android.os.Parcel
 import android.os.Parcelable

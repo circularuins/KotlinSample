@@ -8,18 +8,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.ProgressBar
-import com.circularuins.kotlinsample.client.QiitaClient
-import com.circularuins.kotlinsample.model.User
+import com.circularuins.kotlinsample.domain.model.User
+import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class UsersArticlesActivity : RxAppCompatActivity() {
 
     @Inject
-    lateinit var qiitaClient: QiitaClient
+    lateinit var articlesRepository: ArticlesRepository
 
     companion object {
 
@@ -50,9 +48,7 @@ class UsersArticlesActivity : RxAppCompatActivity() {
             progressBar.visibility = View.VISIBLE
 
             val queryId: String = "user:" + queryEditText.text.toString()
-            qiitaClient.search(queryId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+            articlesRepository.getArticles(queryId)
                     .doAfterTerminate {
                         progressBar.visibility = View.GONE
                     }
@@ -69,9 +65,7 @@ class UsersArticlesActivity : RxAppCompatActivity() {
         val user: User = intent.getParcelableExtra(UsersArticlesActivity.ARTICLE_LIST_EXTRA)
         val queryId: String = "user:" + user.id
         progressBar.visibility = View.VISIBLE
-        qiitaClient.search(queryId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        articlesRepository.getArticles(queryId)
                 .doAfterTerminate {
                     progressBar.visibility = View.GONE
                 }

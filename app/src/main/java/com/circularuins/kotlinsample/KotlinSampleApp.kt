@@ -1,8 +1,8 @@
 package com.circularuins.kotlinsample
 
 import android.app.Application
-import com.circularuins.kotlinsample.dagger.AppComponent
-import com.circularuins.kotlinsample.dagger.DaggerAppComponent
+import com.circularuins.kotlinsample.di.AppComponent
+import com.circularuins.kotlinsample.di.DaggerAppComponent
 
 /**
  * Created by circularuins on 2018/01/21.

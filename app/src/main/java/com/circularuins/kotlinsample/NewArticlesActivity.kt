@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ListView
 import android.widget.ProgressBar
-import com.circularuins.kotlinsample.client.QiitaClient
+import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class NewArticlesActivity : RxAppCompatActivity() {
 
     @Inject
-    lateinit var qiitaClient: QiitaClient
+    lateinit var articlesRepository: ArticlesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +31,7 @@ class NewArticlesActivity : RxAppCompatActivity() {
 
         progressBar.visibility = View.VISIBLE
 
-        qiitaClient.getNews()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        articlesRepository.getNews()
                 .doAfterTerminate {
                     progressBar.visibility = View.GONE
                 }

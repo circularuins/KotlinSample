@@ -1,6 +1,6 @@
-package com.circularuins.kotlinsample.client
+package com.circularuins.kotlinsample.infra.rest
 
-import com.circularuins.kotlinsample.model.Article
+import com.circularuins.kotlinsample.domain.model.Article
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query

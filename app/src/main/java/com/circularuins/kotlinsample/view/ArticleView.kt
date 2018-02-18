@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.bindVew
-import com.circularuins.kotlinsample.model.Article
+import com.circularuins.kotlinsample.domain.model.Article
 
 /**
  * Created by circularuins on 2018/01/07.

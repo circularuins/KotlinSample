@@ -1,4 +1,4 @@
-package com.circularuins.kotlinsample.dagger
+package com.circularuins.kotlinsample.di
 
 import com.circularuins.kotlinsample.NewArticlesActivity
 import com.circularuins.kotlinsample.UsersArticlesActivity

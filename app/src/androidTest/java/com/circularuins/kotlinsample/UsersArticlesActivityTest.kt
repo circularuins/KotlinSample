@@ -9,7 +9,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
-import com.circularuins.kotlinsample.client.QiitaClient
+import com.circularuins.kotlinsample.infra.rest.QiitaClient
 import io.reactivex.Observable
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.not
