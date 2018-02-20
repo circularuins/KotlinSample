@@ -9,17 +9,28 @@ import android.widget.ProgressBar
 import com.circularuins.kotlinsample.KotlinSampleApp
 import com.circularuins.kotlinsample.R
 import com.circularuins.kotlinsample.app.adapter.ArticleListAdapter
+import com.circularuins.kotlinsample.app.contract.UsersArticlesContract
+import com.circularuins.kotlinsample.app.presenter.UsersArticlesPresenter
+import com.circularuins.kotlinsample.bindVew
+import com.circularuins.kotlinsample.domain.model.Article
 import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.circularuins.kotlinsample.toast
+import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import javax.inject.Inject
 
-class UsersArticlesActivity : RxAppCompatActivity() {
+class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View {
 
     @Inject
     lateinit var articlesRepository: ArticlesRepository
+
+    private val progressBar: ProgressBar by bindVew(R.id.progress_bar)
+    private val listView: ListView by bindVew(R.id.list_view)
+
+    private val listAdapter: ArticleListAdapter by lazy {
+        ArticleListAdapter(applicationContext)
+    }
 
     companion object {
 
@@ -34,29 +45,35 @@ class UsersArticlesActivity : RxAppCompatActivity() {
         (application as KotlinSampleApp).component.inject(this)
         setContentView(R.layout.activity_users_articles)
 
-        val listView: ListView = findViewById(R.id.list_view)
-        val progressBar: ProgressBar = findViewById(R.id.progress_bar)
+        val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
+        val queryId: String = "user:" + user.id
+        val presenter = UsersArticlesPresenter(this, articlesRepository,
+                bindUntilEvent(ActivityEvent.DESTROY), queryId)
+        presenter.start()
+    }
 
-        val listAdapter = ArticleListAdapter(applicationContext)
+    override fun showProgress() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideProgress() {
+        progressBar.visibility = View.GONE
+    }
+
+    override fun setList(articles: List<Article>) {
+        listAdapter.articles = articles
+        listAdapter.notifyDataSetChanged()
+    }
+
+    override fun showError(error: Throwable) {
+        toast("エラー : $error")
+    }
+
+    override fun setListTap() {
         listView.adapter = listAdapter
         listView.setOnItemClickListener { adapterView, view, position, id ->
             val article = listAdapter.articles[position]
             ArticleActivity.intent(this, article).let { startActivity(it) }
         }
-
-        val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
-        val queryId: String = "user:" + user.id
-        progressBar.visibility = View.VISIBLE
-        articlesRepository.getArticles(queryId)
-                .doAfterTerminate {
-                    progressBar.visibility = View.GONE
-                }
-                .bindToLifecycle(this)
-                .subscribe({
-                    listAdapter.articles = it
-                    listAdapter.notifyDataSetChanged()
-                }, {
-                    toast("エラー : $it")
-                })
     }
 }
