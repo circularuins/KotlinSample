@@ -30,4 +30,8 @@ class UsersArticlesPresenter(private val view: UsersArticlesContract.View,
                     view.showError(it)
                 })
     }
+
+    override fun onListTap(article: Article) {
+        view.moveArticle(article)
+    }
 }

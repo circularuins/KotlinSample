@@ -2,6 +2,7 @@ package com.circularuins.kotlinsample.app.presenter
 
 import com.circularuins.kotlinsample.app.contract.NewArticlesContract
 import com.circularuins.kotlinsample.domain.model.Article
+import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.trello.rxlifecycle2.LifecycleTransformer
 
@@ -28,5 +29,9 @@ class NewArticlesPresenter(private val view: NewArticlesContract.View,
                 }, {
                     view.showError(it)
                 })
+    }
+
+    override fun onListTap(user: User) {
+        view.moveToUsersArticles(user)
     }
 }

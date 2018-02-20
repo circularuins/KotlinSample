@@ -32,6 +32,9 @@ class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View 
         ArticleListAdapter(applicationContext)
     }
 
+    // TODO lazyまたはdaggerでどうにかしたい
+    private var presenter: UsersArticlesContract.Presenter? = null
+
     companion object {
 
         private const val ARTICLE_LIST_EXTRA: String = "article_list"
@@ -47,9 +50,9 @@ class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View 
 
         val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
         val queryId: String = "user:" + user.id
-        val presenter = UsersArticlesPresenter(this, articlesRepository,
+        presenter = UsersArticlesPresenter(this, articlesRepository,
                 bindUntilEvent(ActivityEvent.DESTROY), queryId)
-        presenter.start()
+        presenter?.start()
     }
 
     override fun showProgress() {
@@ -72,8 +75,11 @@ class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View 
     override fun setListTap() {
         listView.adapter = listAdapter
         listView.setOnItemClickListener { adapterView, view, position, id ->
-            val article = listAdapter.articles[position]
-            ArticleActivity.intent(this, article).let { startActivity(it) }
+            presenter?.onListTap(listAdapter.articles[position])
         }
+    }
+
+    override fun moveArticle(article: Article) {
+        ArticleActivity.intent(this, article).let { startActivity(it) }
     }
 }

@@ -13,9 +13,11 @@ interface UsersArticlesContract {
         fun setList(articles: List<Article>)
         fun showError(error: Throwable)
         fun setListTap()
+        fun moveArticle(article: Article)
     }
 
     interface Presenter {
         fun start()
+        fun onListTap(article: Article)
     }
 }

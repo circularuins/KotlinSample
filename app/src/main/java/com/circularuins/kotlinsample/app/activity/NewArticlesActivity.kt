@@ -11,6 +11,7 @@ import com.circularuins.kotlinsample.app.contract.NewArticlesContract
 import com.circularuins.kotlinsample.app.presenter.NewArticlesPresenter
 import com.circularuins.kotlinsample.bindVew
 import com.circularuins.kotlinsample.domain.model.Article
+import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
 import com.circularuins.kotlinsample.toast
 import com.trello.rxlifecycle2.android.ActivityEvent
@@ -29,12 +30,15 @@ class NewArticlesActivity : RxAppCompatActivity(), NewArticlesContract.View {
         ArticleListAdapter(applicationContext)
     }
 
+    private val presenter: NewArticlesContract.Presenter by lazy {
+        NewArticlesPresenter(this, articlesRepository, bindUntilEvent(ActivityEvent.DESTROY))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (application as KotlinSampleApp).component.inject(this)
         setContentView(R.layout.activity_articles_list)
 
-        val presenter = NewArticlesPresenter(this, articlesRepository, bindUntilEvent(ActivityEvent.DESTROY))
         presenter.start()
     }
 
@@ -49,8 +53,7 @@ class NewArticlesActivity : RxAppCompatActivity(), NewArticlesContract.View {
     override fun setListTap() {
         listView.adapter = listAdapter
         listView.setOnItemClickListener { adapterView, view, position, id ->
-            val user = listAdapter.articles[position].user
-            UsersArticlesActivity.intent(this, user).let { startActivity(it) }
+            presenter.onListTap(listAdapter.articles[position].user)
         }
     }
 
@@ -61,5 +64,9 @@ class NewArticlesActivity : RxAppCompatActivity(), NewArticlesContract.View {
 
     override fun showError(error: Throwable) {
         toast("エラー : $error")
+    }
+
+    override fun moveToUsersArticles(user: User) {
+        UsersArticlesActivity.intent(this, user).let { startActivity(it) }
     }
 }
