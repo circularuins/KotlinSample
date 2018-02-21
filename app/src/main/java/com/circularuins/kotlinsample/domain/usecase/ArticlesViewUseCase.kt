@@ -19,6 +19,13 @@ class ArticlesViewUseCase(private val repository: ArticlesRepository,
                 .subscribe(createArticlesObserver(observer))
     }
 
+    fun getArticles(queryId: String, observer: Observer<List<Article>>) {
+        repository
+                .getArticles(queryId)
+                .compose(transformer)
+                .subscribe(createArticlesObserver(observer))
+    }
+
     private fun createArticlesObserver(observer: Observer<List<Article>>): Observer<List<Article>> {
         return object : Observer<List<Article>> {
             override fun onComplete() {
