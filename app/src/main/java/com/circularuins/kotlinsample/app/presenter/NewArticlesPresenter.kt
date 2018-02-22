@@ -17,32 +17,31 @@ class NewArticlesPresenter(private val view: NewArticlesContract.View,
                            private val transformer: LifecycleTransformer<List<Article>>)
     : NewArticlesContract.Presenter {
 
-    private val articlesObserver: Observer<List<Article>>
-        get() = object  : Observer<List<Article>> {
-            override fun onComplete() {
-                view.hideProgress()
-            }
-
-            override fun onSubscribe(d: Disposable) {
-                // NOP
-            }
-
-            override fun onNext(t: List<Article>) {
-                view.setList(t)
-            }
-
-            override fun onError(e: Throwable) {
-                view.showError(e)
-            }
-        }
-
     override fun start() {
         view.setListTap()
 
         view.showProgress()
 
-        val useCase = ArticlesViewUseCase(articlesRepository, transformer)
-        useCase.getNews(articlesObserver)
+        val useCase = ArticlesViewUseCase(articlesRepository)
+        useCase.getNews()
+                .compose(transformer)
+                .subscribe(object  : Observer<List<Article>> {
+                    override fun onComplete() {
+                        view.hideProgress()
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        // NOP
+                    }
+
+                    override fun onNext(t: List<Article>) {
+                        view.setList(t)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        view.showError(e)
+                    }
+                })
     }
 
     override fun onListTap(user: User) {
