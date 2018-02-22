@@ -12,18 +12,26 @@ class ArticlesViewUseCase(private val repository: ArticlesRepository) {
     fun getNews(): Observable<List<Article>> {
         return repository
                 .getNews()
-                .doOnNext { t: List<Article> ->
-                    // NOP
+                .doOnNext {
+                    t: List<Article> ->
+                    // describe side effects here if need.
                 }
-                .map { t -> t }
+                .map {
+                    // data conversion
+                    t -> t
+                }
     }
 
     fun getArticles(queryId: String): Observable<List<Article>> {
         return repository
                 .getArticles(queryId)
-                .doOnNext { t: List<Article> ->
-                    // NOP
+                .doOnNext {
+                    t: List<Article> ->
+                    // describe side effects here if need.
                 }
-                .map { t -> t }
+                .map {
+                    // data conversion
+                    t -> t
+                }
     }
 }
