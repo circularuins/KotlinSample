@@ -18,6 +18,7 @@ class ArticlesViewUseCase(private val repository: ArticlesRepository) {
                         // data conversion if need.
 
                         subscriber.onNext(it)
+                        subscriber.onComplete()
                     }, {
                         subscriber.onError(it)
                     })
@@ -33,6 +34,7 @@ class ArticlesViewUseCase(private val repository: ArticlesRepository) {
                         // data conversion if need.
 
                         subscriber.onNext(it)
+                        subscriber.onComplete()
                     }, {
                         subscriber.onError(it)
                     })
