@@ -10,28 +10,34 @@ import io.reactivex.Observable
 class ArticlesViewUseCase(private val repository: ArticlesRepository) {
 
     fun getNews(): Observable<List<Article>> {
-        return repository
-                .getNews()
-                .doOnNext {
-                    t: List<Article> ->
-                    // describe side effects here if need.
-                }
-                .map {
-                    // data conversion
-                    t -> t
-                }
+        return Observable.create { subscriber ->
+            repository
+                    .getNews()
+                    .subscribe({
+                        // describe side effects here if need.
+                        // data conversion if need.
+
+                        subscriber.onNext(it)
+                        subscriber.onComplete()
+                    }, {
+                        subscriber.onError(it)
+                    })
+        }
     }
 
     fun getArticles(queryId: String): Observable<List<Article>> {
-        return repository
-                .getArticles(queryId)
-                .doOnNext {
-                    t: List<Article> ->
-                    // describe side effects here if need.
-                }
-                .map {
-                    // data conversion
-                    t -> t
-                }
+        return Observable.create { subscriber ->
+            repository
+                    .getArticles(queryId)
+                    .subscribe({
+                        // describe side effects here if need.
+                        // data conversion if need.
+
+                        subscriber.onNext(it)
+                        subscriber.onComplete()
+                    }, {
+                        subscriber.onError(it)
+                    })
+        }
     }
 }
