@@ -49,7 +49,7 @@ class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View 
         setContentView(R.layout.activity_users_articles)
 
         val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
-        val queryId: String = "user:" + user.id
+        val queryId: String = "user:" + user.userId
         presenter = UsersArticlesPresenter(this, articlesRepository,
                 bindUntilEvent(ActivityEvent.DESTROY), queryId)
         presenter?.start()

@@ -1,6 +1,7 @@
 package com.circularuins.kotlinsample.domain.repository
 
 import com.circularuins.kotlinsample.domain.model.Article
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
@@ -8,7 +9,7 @@ import io.reactivex.Observable
  */
 interface ArticlesRepository {
 
-    fun getNews(): Observable<List<Article>>
+    fun getNews(): Flowable<List<Article>>
 
     fun getArticles(query: String): Observable<List<Article>>
 }

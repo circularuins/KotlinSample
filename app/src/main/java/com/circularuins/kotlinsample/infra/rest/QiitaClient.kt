@@ -1,6 +1,7 @@
 package com.circularuins.kotlinsample.infra.rest
 
 import com.circularuins.kotlinsample.domain.model.Article
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +15,5 @@ interface QiitaClient {
     fun search(@Query("query") query: String): Observable<List<Article>>
 
     @GET("/api/v2/items")
-    fun getNews(): Observable<List<Article>>
+    fun getNews(): Flowable<List<Article>>
 }

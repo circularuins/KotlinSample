@@ -1,15 +1,25 @@
 package com.circularuins.kotlinsample.domain.model
 
+import android.arch.persistence.room.Embedded
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 
 /**
  * Created by circularuins on 2018/01/07.
  */
-data class Article(val id: String,
-                   val title: String,
-                   val url: String,
-                   val user: User) : Parcelable {
+@Entity
+data class Article(
+        @PrimaryKey
+        val id: String,
+
+        val title: String,
+
+        val url: String,
+
+        @Embedded
+        val user: User) : Parcelable {
 
     companion object {
         @JvmField
