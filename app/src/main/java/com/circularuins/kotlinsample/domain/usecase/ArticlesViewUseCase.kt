@@ -14,7 +14,7 @@ class ArticlesViewUseCase(private val repository: ArticlesRepository) {
     fun getNews(): Observable<List<Article>> {
         return Observable.create { subscriber ->
             repository
-                    .getNews(false)
+                    .getNews(false) // TODO 10分経過でtrueとかのロジックを作成する
                     .subscribe({
                         // describe side effects here if need.
                         // data conversion if need.
