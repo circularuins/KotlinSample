@@ -1,5 +1,6 @@
 package com.circularuins.kotlinsample.domain.model
 
+import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
@@ -18,6 +19,9 @@ data class Article(
 
         val url: String,
 
+        @ColumnInfo(name = "created_at")
+        val createdAt: String,
+
         @Embedded
         val user: User) : Parcelable {
 
@@ -25,7 +29,7 @@ data class Article(
         @JvmField
         val CREATOR: Parcelable.Creator<Article> = object : Parcelable.Creator<Article> {
             override fun createFromParcel(source: Parcel): Article = source.run {
-                Article(readString(), readString(), readString(), readParcelable(Article::class.java.classLoader))
+                Article(readString(), readString(), readString(), readString(), readParcelable(Article::class.java.classLoader))
             }
 
             override fun newArray(size: Int): Array<Article?> = arrayOfNulls(size)
@@ -39,6 +43,7 @@ data class Article(
             writeString(id)
             writeString(title)
             writeString(url)
+            writeString(createdAt)
             writeParcelable(user, flags)
         }
     }
