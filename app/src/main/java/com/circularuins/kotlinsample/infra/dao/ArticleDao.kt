@@ -16,6 +16,6 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(articles: List<Article>)
 
-    @Query("SELECT * FROM Article")
+    @Query("SELECT * FROM Article ORDER BY created_at DESC LIMIT 50")
     fun findAll(): Flowable<List<Article>>
 }
