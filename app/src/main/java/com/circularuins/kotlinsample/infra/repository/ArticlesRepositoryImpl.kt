@@ -15,16 +15,16 @@ class ArticlesRepositoryImpl(private val client: QiitaClient,
                              private val subScribe: Scheduler,
                              private val observe: Scheduler) : ArticlesRepository {
 
-    override fun getNews(isDirty: Boolean): Flowable<List<Article>> = when (isDirty) {
+    override fun getNews(needCache: Boolean): Flowable<List<Article>> = when (needCache) {
         // 通信経由で取得
-        true -> client.getNews()
+        false -> client.getNews()
                 // キャッシュ保存だが、ストリームの途中で副作用して良いのか悩む。。
                 .doOnNext { it ->
                     KotlinSampleApp.database.articleDao().insertAll(it) }
                 .subscribeOn(subScribe)
                 .observeOn(observe)
         // キャッシュを取得
-        false -> KotlinSampleApp.database.articleDao().findAll()
+        true -> KotlinSampleApp.database.articleDao().findAll()
     }
 
     override fun getArticles(query: String): Observable<List<Article>> = client.search(query)

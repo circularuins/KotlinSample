@@ -9,7 +9,7 @@ import io.reactivex.Observable
  */
 interface ArticlesRepository {
 
-    fun getNews(isDirty: Boolean): Flowable<List<Article>>
+    fun getNews(needCache: Boolean): Flowable<List<Article>>
 
     fun getArticles(query: String): Observable<List<Article>>
 }

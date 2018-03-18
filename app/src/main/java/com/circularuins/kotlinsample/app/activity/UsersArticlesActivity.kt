@@ -15,6 +15,7 @@ import com.circularuins.kotlinsample.bindVew
 import com.circularuins.kotlinsample.domain.model.Article
 import com.circularuins.kotlinsample.domain.model.User
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
+import com.circularuins.kotlinsample.infra.repository.TimeRepositoryImpl
 import com.circularuins.kotlinsample.toast
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -50,7 +51,9 @@ class UsersArticlesActivity : RxAppCompatActivity(), UsersArticlesContract.View 
 
         val user: User = intent.getParcelableExtra(ARTICLE_LIST_EXTRA)
         val queryId: String = "user:" + user.userId
-        presenter = UsersArticlesPresenter(this, articlesRepository,
+        // TODO DIにまわす
+        val timeRepository = TimeRepositoryImpl(applicationContext)
+        presenter = UsersArticlesPresenter(this, articlesRepository, timeRepository,
                 bindUntilEvent(ActivityEvent.DESTROY), queryId)
         presenter?.start()
     }
