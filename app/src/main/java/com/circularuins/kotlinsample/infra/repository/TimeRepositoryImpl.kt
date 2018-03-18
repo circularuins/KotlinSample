@@ -19,16 +19,21 @@ class TimeRepositoryImpl(context: Context) : TimeRepository {
     private val pref: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
 
-    private val SDF = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US)
+    private val dateFormat: SimpleDateFormat
+        get() {
+            val format = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US)
+            format.timeZone = TimeZone.getTimeZone("Asia/Tokyo")
+            return format
+        }
 
     override fun getTime(): Date? {
         val strDate = pref.getString(PREF_KEY_TIME_RECORD, null)
-        return strDate?.let { SDF.parse(strDate) }
+        return strDate?.let { dateFormat.parse(strDate) }
     }
 
     override fun setTime(time: Date) {
         pref.edit().putString(
                 PREF_KEY_TIME_RECORD,
-                SDF.format(time).toString()).apply()
+                dateFormat.format(time).toString()).apply()
     }
 }
