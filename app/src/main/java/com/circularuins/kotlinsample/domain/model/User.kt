@@ -1,14 +1,26 @@
 package com.circularuins.kotlinsample.domain.model
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 /**
  * Created by circularuins on 2018/01/07.
  */
-data class User(val id: String,
-                val name: String,
-                val profileImageUrl: String) : Parcelable {
+@Entity
+data class User(
+        @PrimaryKey
+        @ColumnInfo(name = "user_id")
+        @SerializedName("id")
+        val userId: String,
+
+        val name: String?,
+
+        @ColumnInfo(name = "profile_image_url")
+        val profileImageUrl: String) : Parcelable {
 
     companion object {
         @JvmField
@@ -25,7 +37,7 @@ data class User(val id: String,
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.run {
-            writeString(id)
+            writeString(userId)
             writeString(name)
             writeString(profileImageUrl)
         }

@@ -3,6 +3,7 @@ package com.circularuins.kotlinsample.app.presenter
 import com.circularuins.kotlinsample.app.contract.UsersArticlesContract
 import com.circularuins.kotlinsample.domain.model.Article
 import com.circularuins.kotlinsample.domain.repository.ArticlesRepository
+import com.circularuins.kotlinsample.domain.repository.TimeRepository
 import com.circularuins.kotlinsample.domain.usecase.ArticlesViewUseCase
 import com.trello.rxlifecycle2.LifecycleTransformer
 
@@ -11,6 +12,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer
  */
 class UsersArticlesPresenter(private val view: UsersArticlesContract.View,
                              private val articlesRepository: ArticlesRepository,
+                             private val timeRepository: TimeRepository,
                              private val transformer: LifecycleTransformer<List<Article>>,
                              private val queryId: String)
     : UsersArticlesContract.Presenter {
@@ -20,7 +22,7 @@ class UsersArticlesPresenter(private val view: UsersArticlesContract.View,
 
         view.showProgress()
 
-        val useCase = ArticlesViewUseCase(articlesRepository)
+        val useCase = ArticlesViewUseCase(articlesRepository, timeRepository)
         useCase.getArticles(queryId)
                 .doAfterTerminate {
                     view.hideProgress()
