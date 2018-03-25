@@ -12,8 +12,9 @@ import retrofit2.http.Query
 interface QiitaClient {
 
     @GET("/api/v2/items")
-    fun search(@Query("query") query: String): Observable<List<Article>>
+    fun search(@Query("query") query: String,
+               @Query("per_page") perPage: Int): Observable<List<Article>>
 
     @GET("/api/v2/items")
-    fun getNews(): Flowable<List<Article>>
+    fun getNews(@Query("per_page") perPage: Int): Flowable<List<Article>>
 }
